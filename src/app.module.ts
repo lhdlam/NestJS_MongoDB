@@ -5,6 +5,7 @@ import { PostModule } from './post/post.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TaskModule } from './task/task.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -16,6 +17,8 @@ import { TaskModule } from './task/task.module';
       useCreateIndex: true,
     }),
     TaskModule,
+    UserModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

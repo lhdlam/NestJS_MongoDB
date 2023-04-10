@@ -8,8 +8,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { CreatePostDto, UpdatePostDto } from '../dto/post.dto';
-import { PostService } from '../services/post.service';
+import { CreatePostDto, UpdatePostDto } from './dto/post.dto';
+import { PostService } from './post.service';
 import { Types } from 'mongoose';
 
 @Controller('post')

@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreatePostDto, UpdatePostDto } from '../dto/post.dto';
-import { PostRepository } from '../repositories/post.repository';
+import { CreatePostDto, UpdatePostDto } from './dto/post.dto';
+import { PostRepository } from './post.repository';
 import { Types } from 'mongoose';
 
 @Injectable()
