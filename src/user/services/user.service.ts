@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { UserRepository } from '../repositories/user.repository';
 import { CreateUserDto, LoginUserDto } from '../dto/user.dto';
 import * as bcrypt from 'bcrypt';
@@ -15,7 +15,9 @@ export class UserService {
       email: userDto.email,
     });
     if (userInDb) {
-      throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
+      // throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
+      throw new BadRequestException(`Email ${userDto.email} already exists`)
+
     }
 
     return await this.userRepository.create(userDto);
