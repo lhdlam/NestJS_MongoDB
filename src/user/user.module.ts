@@ -10,8 +10,12 @@ import { UserRepository } from './repositories/user.repository';
 import { JwtStrategy } from './jwt.strategy';
 import { UserController } from './controllers/user.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as config from 'config'
 
 
+const jwtConfig = config.get('jwt');
+
+console.log(process.env.SECRET, jwtConfig.secret, jwtConfig.expiresIn)
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -36,13 +40,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
     }),
     // JwtModule.register({
-    //   secret: `${process.env.SECRET as string}`,
+    //   secret: process.env.SECRET || jwtConfig.secret,
     //   signOptions: {
-    //     expiresIn: process.env.EXPIRESIN
+    //     expiresIn: jwtConfig.expiresIn
     //   }
     // })
+    
   ],
   controllers: [AuthController, UserController],
-  providers: [UserService, AuthService, UserRepository, JwtStrategy],
+  providers: [UserService, AuthService, UserRepository, JwtStrategy,],
+  exports: [UserService],
 })
 export class UserModule {}

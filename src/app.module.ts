@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TaskModule } from './task/task.module';
 import { UserModule } from './user/user.module';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { UserModule } from './user/user.module';
     }),
     TaskModule,
     UserModule,
-    UserModule,
+    MediaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

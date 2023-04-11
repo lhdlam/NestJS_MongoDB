@@ -11,7 +11,7 @@ export class UserService {
     userDto.password = await bcrypt.hash(userDto.password, 10);
 
     // check exists
-    const userInDb = await this.userRepository.findOneBy({
+    const userInDb = await this.userRepository.findByCondition({
       email: userDto.email,
     });
     if (userInDb) {
@@ -24,7 +24,7 @@ export class UserService {
   }
 
   async findByLogin({ email, password }: LoginUserDto) {
-    const user = await this.userRepository.findOneBy({
+    const user = await this.userRepository.findByCondition({
       email: email,
     });
 
@@ -42,7 +42,7 @@ export class UserService {
   }
 
   async findByEmail(email) {
-    return await this.userRepository.findOneBy({
+    return await this.userRepository.findByCondition({
       email: email,
     });
   }

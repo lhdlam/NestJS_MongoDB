@@ -19,12 +19,12 @@ export class TaskController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: Types.ObjectId) {
+  findOne(@Param('id') id: string) {
     return this.taskService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: Types.ObjectId, 
+  update(@Param('id') id: string, 
   @Body() updateTaskDto: UpdateTaskDto) 
   {
     return this.taskService.updateCreate(id, updateTaskDto);
