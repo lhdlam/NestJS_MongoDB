@@ -15,7 +15,6 @@ import * as config from 'config'
 
 const jwtConfig = config.get('jwt');
 
-console.log(process.env.SECRET, jwtConfig.secret, jwtConfig.expiresIn)
 @Module({
   imports: [
     MongooseModule.forFeature([
