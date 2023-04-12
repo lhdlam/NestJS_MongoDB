@@ -11,7 +11,7 @@ import {
   UseFilters,
   UseGuards,
 } from '@nestjs/common';
-import { CreatePostDto, UpdatePostDto } from '../dto/post.dto';
+import { CreatePostDto, PaginationPostDto, UpdatePostDto } from '../dto/post.dto';
 import { PostService } from '../services/post.service';
 import { Types } from 'mongoose';
 import { AuthGuard } from '@nestjs/passport';
@@ -23,9 +23,10 @@ import { AuthGuard } from '@nestjs/passport';
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
+
   @Get()
-  getAllPost() {
-    return this.postService.getAllPosts();
+  getAllPost(@Query() { page, limit, start }: PaginationPostDto) {
+    return this.postService.getAllPosts(page, limit, start);
   }
 
   @Get(':id')

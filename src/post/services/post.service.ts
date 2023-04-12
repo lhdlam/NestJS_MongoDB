@@ -9,7 +9,7 @@ import { PostRepository } from '../repositories/post.repository';
 import { PostNotFoundException } from 'src/exceptions/postNotFound.exception';
 import { UserService } from '../../user/services/user.service';
 import { User } from '../../user/models/user.model';
-import { Types } from 'mongoose';
+import { Types, isValidObjectId } from 'mongoose';
 import { CategoryRepository } from '../repositories/category.repository';
 
 @Injectable()
@@ -20,8 +20,25 @@ export class PostService {
     private readonly categoryRepository: CategoryRepository,
   ) {}
 
-  async getAllPosts() {
-    return this.postRepository.getByCondition({});
+  async getAllPosts(page: number, limit: number, start: string) {
+    const count = await this.postRepository.countDocuments({});
+    const count_page = (count / limit).toFixed();
+    const posts = await this.postRepository.getByCondition(
+      {
+        _id: {
+          $gt: isValidObjectId(start) ? start : '000000000000000000000000', // get pages next has _id bigger than previous page
+        },
+      },
+      null, //field = null
+      { // options
+        sort: {
+          _id: 1, // 1: sort increase, -1: sort reduce
+        },
+        skip: (page - 1) * limit,
+        limit: Number(limit),
+      },
+    );
+    return { count_page, posts };
   }
 
   async getPostById(post_id: string) {
