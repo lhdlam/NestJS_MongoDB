@@ -35,7 +35,6 @@ export class PostController {
   // }
 
   @Post()
-  @UseGuards(AuthGuard('jwt'))
   async createPost(@Req() req: any, @Body() post: CreatePostDto) {
     return this.postService.createPost(req.user, post);
   }
@@ -65,5 +64,10 @@ export class PostController {
   @Get('get/categories')
   async getByCategories(@Query('category_ids') category_ids) {
     return await this.postService.getByCategories(category_ids);
+  }
+
+  @Get('get/array')
+  async getArray(){
+    return this.postService.getByArray()
   }
 }

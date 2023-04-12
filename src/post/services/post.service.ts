@@ -79,4 +79,20 @@ export class PostService {
   async deletePost(post_id: string) {
     return await this.postRepository.deleteOne(post_id);
   }
+
+  async getByArray(){
+    return await this.postRepository.getByCondition({
+      // numbers:  {$gt: 40, $lt: 50}
+      // $and: [{numbers: {$gt: 40}},{numbers: {$lt: 50}}]
+
+      // 'numbers.0': { $lt: 12 },
+      // numbers: { $elemMatch: { $gt: 13, $lt: 20 } },
+      // numbers: { $gt: 13, $lt: 20 },
+      // $and: [{ numbers: { $gt: 13 } }, { numbers: { $lt: 20 } }],
+      // tags: 'black',
+      // tags: { $all: ['black', 'blank'] },
+      // tags: ['red', 'blank'],
+      tags: { $size: 2 },
+    })
+  }
 }
