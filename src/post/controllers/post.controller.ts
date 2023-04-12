@@ -8,6 +8,7 @@ import {
   Put,
   Query,
   Req,
+  UseFilters,
   UseGuards,
 } from '@nestjs/common';
 import { CreatePostDto, UpdatePostDto } from '../dto/post.dto';
@@ -27,12 +28,12 @@ export class PostController {
     return this.postService.getAllPosts();
   }
 
-  // @Get(':id')
+  @Get(':id')
   // @UseFilters(HttpExceptionFilter)
-  // // @UseFilters(ExceptionLoggerFilter)
-  // getPostById(@Param('id') id: string) {
-  //   return this.postService.getPostById(id);
-  // }
+  // @UseFilters(ExceptionLoggerFilter)
+  getPostById(@Param('id') id: string) {
+    return this.postService.getPostById(id);
+  }
 
   @Post()
   async createPost(@Req() req: any, @Body() post: CreatePostDto) {
@@ -52,9 +53,15 @@ export class PostController {
 
   @Get('user/all')
   async getPostUser(@Req() req: any) {
-    await req.user.populate('posts').execPopulate();
+    await req.user
+      .populate({
+        path: 'posts',
+        select: 'title',
+      })
+      .execPopulate();
     return req.user.posts;
-  }
+  };
+  
 
   @Get('get/category')
   async getByCategory(@Query('category_id') category_id) {

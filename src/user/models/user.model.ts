@@ -17,7 +17,13 @@ UserSchema.virtual('posts', {
   localField: '_id',
   foreignField: 'user',
   justOne: false,
+  // count: true,
+  // match: {
+  //   tags: {$size: 2},
+  // }
 });
+
+
 
 export { UserSchema };
 
