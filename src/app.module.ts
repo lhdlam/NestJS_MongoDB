@@ -21,7 +21,7 @@ import { SubscriberModule } from './subscriber/subscriber.module';
     TaskModule,
     UserModule,
     MediaModule,
-    // SubscriberModule,
+    SubscriberModule,
   ],
   controllers: [AppController],
   providers: [AppService],
