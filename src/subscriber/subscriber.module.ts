@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SubscriberController } from './controllers/subscriber.controller';
 import { ClientProxyFactory, Transport } from '@nestjs/microservices';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
-  imports: [ConfigModule],
+  imports: [ConfigModule, UserModule,],
   controllers: [SubscriberController],
   providers: [
     {
